@@ -1,0 +1,58 @@
+[build]
+  command = "npm run build"
+  publish = "out"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+[dev]
+  command = "npm run dev"
+  port = 3000
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/api/*"
+  [headers.values]
+    cache-control = "max-age=0,no-cache,no-store,must-revalidate"
+
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    cache-control = "max-age=31536000"
+
+[[headers]]
+  for = "*.css"
+  [headers.values]
+    cache-control = "max-age=31536000"
+
+[[headers]]
+  for = "*.png"
+  [headers.values]
+    cache-control = "max-age=31536000"
+
+[[headers]]
+  for = "*.jpg"
+  [headers.values]
+    cache-control = "max-age=31536000"
+
+[[headers]]
+  for = "*.jpeg"
+  [headers.values]
+    cache-control = "max-age=31536000"
+
+[[headers]]
+  for = "*.webp"
+  [headers.values]
+    cache-control = "max-age=31536000"
