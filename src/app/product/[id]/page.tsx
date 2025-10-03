@@ -1,14 +1,6 @@
-import { sampleProducts } from '@/lib/data';
-
-// Generate static params for all products
-export async function generateStaticParams() {
-  return sampleProducts.map((product) => ({
-    id: product.id,
-  }));
-}
-
 'use client';
 
+import { sampleProducts } from '@/lib/data';
 import { useState } from 'react';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
@@ -27,6 +19,13 @@ import {
   ChevronRight
 } from 'lucide-react';
 import { useCartStore } from '@/store/cart';
+
+// Generate static params for all products
+export async function generateStaticParams() {
+  return sampleProducts.map((product) => ({
+    id: product.id,
+  }));
+}
 
 const ProductPage = () => {
   const params = useParams();
