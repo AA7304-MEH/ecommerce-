@@ -4,12 +4,12 @@ import { useState } from 'react';
 import { useParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { 
-  Star, 
-  ShoppingCart, 
-  Heart, 
-  Truck, 
-  Shield, 
+import {
+  Star,
+  ShoppingCart,
+  Heart,
+  Truck,
+  Shield,
   RotateCcw,
   Plus,
   Minus,
@@ -19,6 +19,13 @@ import {
 } from 'lucide-react';
 import { sampleProducts } from '@/lib/data';
 import { useCartStore } from '@/store/cart';
+
+// Generate static params for all products
+export async function generateStaticParams() {
+  return sampleProducts.map((product) => ({
+    id: product.id,
+  }));
+}
 
 const ProductPage = () => {
   const params = useParams();
