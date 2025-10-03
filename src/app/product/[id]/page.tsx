@@ -1,3 +1,12 @@
+import { sampleProducts } from '@/lib/data';
+
+// Generate static params for all products
+export async function generateStaticParams() {
+  return sampleProducts.map((product) => ({
+    id: product.id,
+  }));
+}
+
 'use client';
 
 import { useState } from 'react';
@@ -17,15 +26,7 @@ import {
   ChevronLeft,
   ChevronRight
 } from 'lucide-react';
-import { sampleProducts } from '@/lib/data';
 import { useCartStore } from '@/store/cart';
-
-// Generate static params for all products
-export async function generateStaticParams() {
-  return sampleProducts.map((product) => ({
-    id: product.id,
-  }));
-}
 
 const ProductPage = () => {
   const params = useParams();

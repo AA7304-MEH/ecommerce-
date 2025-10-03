@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  // Use standalone output for better Netlify compatibility
+  output: 'standalone',
   trailingSlash: true,
   images: {
     unoptimized: true,
