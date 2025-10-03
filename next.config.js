@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Use standalone output for better Netlify compatibility
-  output: 'standalone',
+  // Use standard output for better client component compatibility
   trailingSlash: true,
   images: {
     unoptimized: true,

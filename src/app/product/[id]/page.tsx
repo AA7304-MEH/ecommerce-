@@ -20,13 +20,6 @@ import {
 } from 'lucide-react';
 import { useCartStore } from '@/store/cart';
 
-// Generate static params for all products
-export async function generateStaticParams() {
-  return sampleProducts.map((product) => ({
-    id: product.id,
-  }));
-}
-
 const ProductPage = () => {
   const params = useParams();
   const productId = params.id as string;
