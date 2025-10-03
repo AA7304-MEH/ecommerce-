@@ -30,7 +30,8 @@ class MailchimpService {
     this.serverPrefix = this.apiKey.split('-')[1] || '';
     this.baseUrl = `https://${this.serverPrefix}.api.mailchimp.com/3.0`;
 
-    if (!this.apiKey || !this.listId) {
+    // Only warn in browser, not during build time
+    if (typeof window !== 'undefined' && (!this.apiKey || !this.listId)) {
       console.warn('Mailchimp credentials not configured. Please set MAILCHIMP_API_KEY and MAILCHIMP_LIST_ID in your environment variables.');
     }
   }
@@ -40,6 +41,7 @@ class MailchimpService {
     if (!this.apiKey || !this.listId) {
       return {
         success: false,
+        message: 'Mailchimp not configured',
         error: 'Mailchimp not configured'
       };
     }
@@ -90,6 +92,7 @@ class MailchimpService {
       } else {
         return {
           success: false,
+          message: 'Failed to subscribe to newsletter',
           error: data.detail || 'Failed to subscribe to newsletter'
         };
       }
@@ -97,6 +100,7 @@ class MailchimpService {
       console.error('Mailchimp subscription error:', error);
       return {
         success: false,
+        message: 'Network error occurred while subscribing',
         error: 'Network error occurred while subscribing'
       };
     }
@@ -105,7 +109,11 @@ class MailchimpService {
   // Send welcome email for TechNova customers
   async sendWelcomeEmail(email: string, customerName?: string): Promise<MailchimpResponse> {
     if (!this.apiKey) {
-      return { success: false, error: 'Mailchimp not configured' };
+      return {
+        success: false,
+        message: 'Mailchimp not configured',
+        error: 'Mailchimp not configured'
+      };
     }
 
     try {
@@ -158,6 +166,7 @@ class MailchimpService {
       } else {
         return {
           success: false,
+          message: 'Failed to send welcome email',
           error: data.detail || 'Failed to send welcome email'
         };
       }
@@ -173,7 +182,11 @@ class MailchimpService {
   // Add customer to specific TechNova segments
   async addToSegment(email: string, segmentName: string): Promise<MailchimpResponse> {
     if (!this.apiKey || !this.listId) {
-      return { success: false, error: 'Mailchimp not configured' };
+      return {
+        success: false,
+        message: 'Mailchimp not configured',
+        error: 'Mailchimp not configured'
+      };
     }
 
     try {
@@ -191,7 +204,11 @@ class MailchimpService {
       const segmentId = await this.getOrCreateSegment(segments[segmentName as keyof typeof segments] || segmentName);
       
       if (!segmentId) {
-        return { success: false, error: 'Failed to create segment' };
+        return {
+          success: false,
+          message: 'Failed to create segment',
+          error: 'Failed to create segment'
+        };
       }
 
       const response = await fetch(`${this.baseUrl}/lists/${this.listId}/segments/${segmentId}/members`, {
@@ -228,7 +245,11 @@ class MailchimpService {
   // Send abandoned cart reminder for TechNova
   async sendAbandonedCartEmail(email: string, cartItems: any[], cartValue: number): Promise<MailchimpResponse> {
     if (!this.apiKey) {
-      return { success: false, error: 'Mailchimp not configured' };
+      return {
+        success: false,
+        message: 'Mailchimp not configured',
+        error: 'Mailchimp not configured'
+      };
     }
 
     try {

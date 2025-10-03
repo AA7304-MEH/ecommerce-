@@ -63,7 +63,8 @@ class ZendeskService {
     this.zendeskKey = process.env.NEXT_PUBLIC_ZENDESK_KEY || '';
     this.subdomain = process.env.NEXT_PUBLIC_ZENDESK_SUBDOMAIN || '';
 
-    if (!this.zendeskKey || !this.subdomain) {
+    // Only warn in browser, not during build time
+    if (typeof window !== 'undefined' && (!this.zendeskKey || !this.subdomain)) {
       console.warn('Zendesk credentials not configured. Please set NEXT_PUBLIC_ZENDESK_KEY and NEXT_PUBLIC_ZENDESK_SUBDOMAIN in your environment variables.');
     }
   }
