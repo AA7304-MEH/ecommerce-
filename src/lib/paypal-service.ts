@@ -88,8 +88,8 @@ class PayPalService {
           brand_name: 'TechNova Global',
           landing_page: 'NO_PREFERENCE',
           user_action: 'PAY_NOW',
-          return_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/payment/paypal/success`,
-          cancel_url: `${process.env.NEXT_PUBLIC_API_BASE_URL}/payment/paypal/cancel`,
+          return_url: `/payment/paypal/success`,
+          cancel_url: `/payment/paypal/cancel`,
         },
       };
 
