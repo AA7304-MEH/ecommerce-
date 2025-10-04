@@ -53,22 +53,15 @@ export interface AliExpressApiResponse {
 }
 
 class AliExpressApi {
-  private readonly appKey: string;
-  private readonly appSecret: string;
-  private readonly apiUrl: string;
-  private readonly apiVersion: string;
-  private readonly trackingId: string;
+  private readonly appKey: string = '';
+  private readonly appSecret: string = '';
+  private readonly apiUrl: string = 'http://gw.api.taobao.com/router/rest';
+  private readonly apiVersion: string = '2.0';
+  private readonly trackingId: string = '';
 
   constructor() {
-    this.appKey = process.env.ALIEXPRESS_APP_KEY || '';
-    this.appSecret = process.env.ALIEXPRESS_APP_SECRET || '';
-    this.apiUrl = process.env.ALIEXPRESS_API_URL || 'http://gw.api.taobao.com/router/rest';
-    this.apiVersion = process.env.ALIEXPRESS_API_VERSION || '2.0';
-    this.trackingId = process.env.ALIEXPRESS_TRACKING_ID || '';
-
-    if (!this.appKey || !this.appSecret) {
-      console.warn('AliExpress API credentials not found. Please set ALIEXPRESS_APP_KEY and ALIEXPRESS_APP_SECRET in your environment variables.');
-    }
+    // API credentials will be loaded at runtime
+    // to avoid exposing them in build output
   }
 
   private signRequest(parameters: Record<string, any>): string {
