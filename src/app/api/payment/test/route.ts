@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
         keySecret: razorpayKeySecret && razorpayKeySecret !== 'your_razorpay_secret_here' ? 'Configured ✅' : 'Not configured ❌',
         publicKey: publicKey ? `${publicKey.substring(0, 8)}***` : 'Not configured ❌',
         environment: razorpayKeyId?.includes('live') ? 'Production (Live) 🔴' : 'Test Mode 🟡',
-        status: razorpayKeyId === 'rzp_live_R7dfHLEHcCCibm' ? 'Live Key Active ✅' : 'Key Issue ❌'
+        status: razorpayKeyId?.includes('live') ? 'Live Key Active ✅' : 'Test Key Active ✅'
       },
       features: [
         'UPI Payments ✅',
