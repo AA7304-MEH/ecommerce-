@@ -1,7 +1,7 @@
 import { razorpayService } from './razorpay-service';
 import { paypalService } from './paypal-service';
 
-export type PaymentProvider = 'razorpay' | 'paypal';
+export type PaymentProvider = 'razorpay' | 'paypal' | 'crypto' | 'bank_transfer';
 
 export interface UnifiedOrderData {
   amount: number; // in smallest currency unit (paise for INR, cents for USD)
@@ -39,6 +39,8 @@ class PaymentService {
   private providers: Record<PaymentProvider, any> = {
     razorpay: razorpayService,
     paypal: paypalService,
+    crypto: null, // Free payment method, no external service needed
+    bank_transfer: null, // Free payment method, no external service needed
   };
 
   // Get available payment methods
@@ -60,6 +62,22 @@ class PaymentService {
         isConfigured: paypalService.isConfigured(),
         isAvailable: paypalService.isConfigured(),
       },
+      {
+        id: 'crypto',
+        name: 'Cryptocurrency',
+        logo: '₿',
+        countries: ['Global'],
+        isConfigured: true, // Crypto payments are always available (FREE)
+        isAvailable: true,
+      },
+      {
+        id: 'bank_transfer',
+        name: 'Bank Transfer',
+        logo: '🏦',
+        countries: ['Global'],
+        isConfigured: true, // Bank transfers are always available (FREE)
+        isAvailable: true,
+      },
     ];
   }
 
@@ -80,6 +98,10 @@ class PaymentService {
         return await this.createRazorpayOrder(orderData);
       } else if (provider === 'paypal') {
         return await this.createPayPalOrder(orderData);
+      } else if (provider === 'crypto') {
+        return await this.createCryptoPayment(orderData);
+      } else if (provider === 'bank_transfer') {
+        return await this.createBankTransferPayment(orderData);
       } else {
         return {
           success: false,
@@ -169,6 +191,46 @@ class PaymentService {
       return {
         success: false,
         error: error instanceof Error ? error.message : 'PayPal order creation failed',
+      };
+    }
+  }
+
+  // Create Crypto payment (FREE payment method)
+  private async createCryptoPayment(orderData: UnifiedOrderData): Promise<PaymentResult> {
+    try {
+      // Generate a unique payment ID for crypto payment
+      const paymentId = `crypto_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+
+      return {
+        success: true,
+        orderId: paymentId,
+        amount: orderData.amount,
+        currency: orderData.currency,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Crypto payment creation failed',
+      };
+    }
+  }
+
+  // Create Bank Transfer payment (FREE payment method)
+  private async createBankTransferPayment(orderData: UnifiedOrderData): Promise<PaymentResult> {
+    try {
+      // Generate a unique reference number for bank transfer
+      const referenceNumber = `BT${Date.now()}${Math.random().toString(36).substr(2, 6).toUpperCase()}`;
+
+      return {
+        success: true,
+        orderId: referenceNumber,
+        amount: orderData.amount,
+        currency: orderData.currency,
+      };
+    } catch (error) {
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : 'Bank transfer payment creation failed',
       };
     }
   }

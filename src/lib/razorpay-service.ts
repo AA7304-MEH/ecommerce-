@@ -22,10 +22,20 @@ export interface RazorpayOrder {
 
 class RazorpayService {
   private razorpay: Razorpay | null = null;
+  private keyId: string = '';
+  private keySecret: string = '';
 
   constructor() {
-    // Razorpay will be initialized at runtime, not build time
-    // to avoid exposing credentials in build output
+    // Initialize credentials from environment variables
+    this.keyId = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || '';
+    this.keySecret = process.env.RAZORPAY_KEY_SECRET || '';
+
+    if (this.keyId && this.keySecret) {
+      this.razorpay = new Razorpay({
+        key_id: this.keyId,
+        key_secret: this.keySecret,
+      });
+    }
   }
 
   async createOrder(orderData: RazorpayOrderData): Promise<RazorpayOrder | null> {
@@ -91,8 +101,8 @@ class RazorpayService {
 
   // Get public key for frontend
    getPublicKey(): string {
-     return '';
-   }
+      return this.keyId;
+    }
 
   // Check if service is properly configured
   isConfigured(): boolean {

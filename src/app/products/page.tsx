@@ -77,82 +77,82 @@ const ProductsPage = () => {
 
   const ProductCard = ({ product }: { product: typeof sampleProducts[0] }) => (
     <div className={`card group hover:shadow-lg transition-all duration-300 ${viewMode === 'list' ? 'flex' : ''}`}>
-      <div className={`relative ${viewMode === 'list' ? 'w-48 h-48 flex-shrink-0' : 'h-64'} overflow-hidden`}>
-        <Image
-          src={product.images[0]}
-          alt={product.title}
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-300"
-        />
-        
-        {product.discount && (
-          <div className="absolute top-3 left-3 bg-red-500 text-white px-2 py-1 rounded-md text-sm font-semibold">
-            -{product.discount}%
+      <Link href={`/product/${product.id}`} className="block">
+        <div className={`relative ${viewMode === 'list' ? 'w-48 h-48 flex-shrink-0' : 'h-64'} overflow-hidden`}>
+          <Image
+            src={product.images[0]}
+            alt={product.title}
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-300"
+          />
+
+          {product.discount && (
+            <div className="absolute top-3 left-3 bg-red-500 text-white px-2 py-1 rounded-md text-sm font-semibold">
+              -{product.discount}%
+            </div>
+          )}
+
+          <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
+            <button className="bg-white/90 backdrop-blur-sm p-2 rounded-full hover:bg-white">
+              <Heart className="w-4 h-4 text-gray-600" />
+            </button>
           </div>
-        )}
-        
-        <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
-          <button className="bg-white/90 backdrop-blur-sm p-2 rounded-full hover:bg-white">
-            <Heart className="w-4 h-4 text-gray-600" />
-          </button>
         </div>
-      </div>
-      
-      <div className={`p-4 ${viewMode === 'list' ? 'flex-1' : ''}`}>
-        <Link href={`/product/${product.id}`}>
+
+        <div className={`p-4 ${viewMode === 'list' ? 'flex-1' : ''}`}>
           <h3 className="font-semibold text-gray-900 mb-2 hover:text-primary-600 transition-colors">
             {product.title}
           </h3>
-        </Link>
-        
-        {viewMode === 'list' && (
-          <p className="text-gray-600 text-sm mb-3 line-clamp-2">
-            {product.description}
-          </p>
-        )}
-        
-        <div className="flex items-center gap-1 mb-2">
-          <div className="flex items-center">
-            {[...Array(5)].map((_, i) => (
-              <Star 
-                key={i} 
-                className={`w-4 h-4 ${i < Math.floor(product.rating) ? 'text-yellow-400 fill-current' : 'text-gray-300'}`} 
-              />
-            ))}
-          </div>
-          <span className="text-sm text-gray-600">({product.reviewCount})</span>
-        </div>
-        
-        <div className="flex items-center gap-2 mb-4">
-          <span className="text-xl font-bold text-primary-600">
-            ${product.price}
-          </span>
-          {product.originalPrice && (
-            <span className="text-sm text-gray-500 line-through">
-              ${product.originalPrice}
-            </span>
-          )}
-        </div>
-        
-        <div className={`${viewMode === 'list' ? 'flex gap-2' : 'space-y-2'}`}>
-          <button 
-            onClick={() => addItem(product)}
-            className="w-full btn-primary flex items-center justify-center gap-2"
-          >
-            <ShoppingCart className="w-4 h-4" />
-            Add to Cart
-          </button>
-          
+
           {viewMode === 'list' && (
-            <Link 
-              href={`/product/${product.id}`}
-              className="btn-secondary flex items-center justify-center gap-2 whitespace-nowrap"
-            >
-              View Details
-            </Link>
+            <p className="text-gray-600 text-sm mb-3 line-clamp-2">
+              {product.description}
+            </p>
           )}
+
+          <div className="flex items-center gap-1 mb-2">
+            <div className="flex items-center">
+              {[...Array(5)].map((_, i) => (
+                <Star
+                  key={i}
+                  className={`w-4 h-4 ${i < Math.floor(product.rating) ? 'text-yellow-400 fill-current' : 'text-gray-300'}`}
+                />
+              ))}
+            </div>
+            <span className="text-sm text-gray-600">({product.reviewCount})</span>
+          </div>
+
+          <div className="flex items-center gap-2 mb-4">
+            <span className="text-xl font-bold text-primary-600">
+              ${product.price}
+            </span>
+            {product.originalPrice && (
+              <span className="text-sm text-gray-500 line-through">
+                ${product.originalPrice}
+              </span>
+            )}
+          </div>
+
+          <div className={`${viewMode === 'list' ? 'flex gap-2' : 'space-y-2'}`}>
+            <button
+              onClick={() => addItem(product)}
+              className="w-full btn-primary flex items-center justify-center gap-2"
+            >
+              <ShoppingCart className="w-4 h-4" />
+              Add to Cart
+            </button>
+
+            {viewMode === 'list' && (
+              <Link
+                href={`/product/${product.id}`}
+                className="btn-secondary flex items-center justify-center gap-2 whitespace-nowrap"
+              >
+                View Details
+              </Link>
+            )}
+          </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 

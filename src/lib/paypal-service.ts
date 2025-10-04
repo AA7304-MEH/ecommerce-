@@ -35,8 +35,9 @@ class PayPalService {
   private baseURL: string = 'https://api-m.sandbox.paypal.com'; // Sandbox
 
   constructor() {
-    // PayPal credentials will be loaded at runtime
-    // to avoid exposing them in build output
+    // Initialize credentials from environment variables
+    this.clientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || '';
+    this.clientSecret = process.env.PAYPAL_CLIENT_SECRET || '';
   }
 
   private async getAccessToken(): Promise<string> {

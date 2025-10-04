@@ -278,6 +278,64 @@ export default function UnifiedPayment({
               </p>
             </div>
           )}
+
+          {selectedProvider === 'crypto' && (
+            <div className="space-y-4">
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                <h4 className="font-medium text-green-800 mb-2">Cryptocurrency Payment</h4>
+                <p className="text-sm text-green-700 mb-3">
+                  Send payment to the address below and your order will be processed once confirmed on the blockchain.
+                </p>
+                <div className="bg-white p-3 rounded border font-mono text-sm break-all">
+                  bc1qxy2kgdygjrsqtzq2n0yrf2493p83kkfjhx0wlh
+                </div>
+                <p className="text-xs text-green-600 mt-2">
+                  Supported: BTC, ETH, USDT (BEP20/ERC20)
+                </p>
+              </div>
+              <button
+                onClick={() => onSuccess({ provider: 'crypto', orderId: `crypto_${Date.now()}` })}
+                className="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200"
+              >
+                I've Sent the Payment
+              </button>
+            </div>
+          )}
+
+          {selectedProvider === 'bank_transfer' && (
+            <div className="space-y-4">
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <h4 className="font-medium text-blue-800 mb-2">Bank Transfer Details</h4>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-blue-700">Bank Name:</span>
+                    <span className="font-medium">TechNova Global Bank</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-blue-700">Account Number:</span>
+                    <span className="font-medium font-mono">1234 5678 9012 3456</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-blue-700">Reference:</span>
+                    <span className="font-medium font-mono">BT{Date.now()}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-blue-700">Amount:</span>
+                    <span className="font-medium">{currency.toUpperCase()} {amount.toFixed(2)}</span>
+                  </div>
+                </div>
+                <p className="text-xs text-blue-600 mt-3">
+                  Please include the reference number in your transfer description
+                </p>
+              </div>
+              <button
+                onClick={() => onSuccess({ provider: 'bank_transfer', orderId: `BT${Date.now()}` })}
+                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200"
+              >
+                I've Made the Transfer
+              </button>
+            </div>
+          )}
         </div>
       )}
 
