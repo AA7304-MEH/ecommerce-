@@ -1,10 +1,10 @@
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams, Suspense } from 'next/navigation';
 import { XCircle, ArrowRight, RefreshCw } from 'lucide-react';
 import Link from 'next/link';
 
-export default function PayPalCancelPage() {
+function PayPalCancelContent() {
   const searchParams = useSearchParams();
   const orderId = searchParams.get('orderId');
   const error = searchParams.get('error');
@@ -82,5 +82,21 @@ export default function PayPalCancelPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function PayPalCancelPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50 flex items-center justify-center p-4">
+        <div className="max-w-md w-full bg-white rounded-2xl shadow-xl p-8 text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600 mx-auto mb-4"></div>
+          <h2 className="text-xl font-semibold text-gray-900 mb-2">Loading...</h2>
+          <p className="text-gray-600">Please wait...</p>
+        </div>
+      </div>
+    }>
+      <PayPalCancelContent />
+    </Suspense>
   );
 }
