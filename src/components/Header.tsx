@@ -171,6 +171,9 @@ const Header = () => {
             <Link href="/contact" className="text-gray-700 hover:text-primary-600 font-medium">
               Contact
             </Link>
+            <Link href="/amazon-demo" className="text-orange-600 hover:text-orange-700 font-medium">
+              🚀 Amazon Demo
+            </Link>
           </div>
 
           {/* Mobile Menu */}
@@ -203,6 +206,9 @@ const Header = () => {
                 </Link>
                 <Link href="/contact" className="block text-gray-700 hover:text-primary-600 font-medium">
                   Contact
+                </Link>
+                <Link href="/amazon-demo" className="block text-orange-600 hover:text-orange-700 font-medium">
+                  🚀 Amazon Demo
                 </Link>
                 <hr className="my-3" />
                 <Link href="/account" className="block text-gray-700 hover:text-primary-600">
