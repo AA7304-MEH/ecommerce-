@@ -90,22 +90,22 @@ For any platform, add these environment variables:
 
 ```env
 # AliExpress API (Keep Secret)
-ALIEXPRESS_APP_KEY=519544
-ALIEXPRESS_APP_SECRET=xw2f8AtsAIx9iDQz1XtonOJ3vGt6ool0
+ALIEXPRESS_APP_KEY=your_aliexpress_app_key_here
+ALIEXPRESS_APP_SECRET=your_aliexpress_app_secret_here
 
 # Razorpay (Keep Secret)
-RAZORPAY_KEY_ID=rzp_live_R7dfHLEHcCCibm
-RAZORPAY_KEY_SECRET=[Your Razorpay Secret]
+RAZORPAY_KEY_ID=your_razorpay_key_id_here
+RAZORPAY_KEY_SECRET=your_razorpay_secret_here
 
 # Google Analytics
-NEXT_PUBLIC_GA_ID=[Your GA4 ID]
+NEXT_PUBLIC_GA_ID=your_ga4_id_here
 
 # Mailchimp
-MAILCHIMP_API_KEY=[Your Mailchimp Key]
-MAILCHIMP_AUDIENCE_ID=[Your Audience ID]
+MAILCHIMP_API_KEY=your_mailchimp_api_key_here
+MAILCHIMP_AUDIENCE_ID=your_mailchimp_audience_id_here
 
 # Zendesk
-NEXT_PUBLIC_ZENDESK_KEY=[Your Zendesk Key]
+NEXT_PUBLIC_ZENDESK_KEY=your_zendesk_key_here
 ```
 
 ## 🎯 **RECOMMENDED DEPLOYMENT FLOW**
